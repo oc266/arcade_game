@@ -28,9 +28,15 @@ class Enemy {
 // a handleInput() method.
 class Player {
   constructor() {
+    // The image/ sprite for the player. This uses
+    // a provided helper to easily load images
     this.sprite = 'images/char-boy.png';
     this.x = 203;
     this.y = 375;
+  }
+
+  update() {
+    
   }
 
   render() {
@@ -40,16 +46,24 @@ class Player {
   handleInput(keyInput) {
     switch (keyInput) {
       case 'left':
-        this.x -= 101;
+        if (this.x >= 102) {
+          this.x -= 101;
+        };
         break;
       case 'right':
-        this.x += 101;
+        if (this.x <= 304) {
+          this.x += 101;
+        };
         break;
       case 'up':
-        this.y -= 83;
+        if (this.y >= 43) {
+          this.y -= 83;
+        };
         break;
       case 'down':
-        this.y += 83;
+        if (this.y <= 292) {
+          this.y += 83;
+        };
         break;
     }
   }
