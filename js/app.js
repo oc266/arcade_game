@@ -49,9 +49,10 @@ class Player {
     // of wins and restart the game
     if (this.y < 43) {
       setTimeout(() => {
-        wins += 1;
         this.y = 375;
       }, 300);
+      wins += 1;
+      score += 10;
     };
 
     // If the player collides with an enemy, then restart the
@@ -63,6 +64,17 @@ class Player {
         wins = 0;
       };
     });
+
+    // If the player lands on the same square as the gem
+    // then collect the gem, add 10 to the score and set a
+    // new gem down
+    if(this.x === gem.x && this.y === gem.y - 17) {
+      score += 10;
+      gem.sprite = gems[ Math.floor(Math.random()*3)];
+      gem.x = Math.floor(Math.random()*5)*101 + 1;
+      gem.y = Math.floor(Math.random()*3)*83 + 60;
+      gem.render();
+    };
   }
 
   render() {
@@ -95,18 +107,37 @@ class Player {
   }
 };
 
+class Gem {
+  constructor() {
+    this.sprite = gems[ Math.floor(Math.random()*3)];
+    this.x = Math.floor(Math.random()*5)*101 + 1;
+    this.y = Math.floor(Math.random()*3)*83 + 60;
+  }
+
+  render() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+  };
+}
+
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
+var gems = ['images/Gem Blue.png',
+            'images/Gem Green.png',
+            'images/Gem Orange.png',];
+var gem = new Gem();
 var Enemy1 = new Enemy(),
     Enemy2 = new Enemy();
     Enemy3 = new Enemy();
 var allEnemies = [Enemy1, Enemy2, Enemy3];
 var player = new Player();
 
+
+
 // Define variables
 var wins = 0;
+var score = 50;
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
