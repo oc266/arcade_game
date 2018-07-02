@@ -7,6 +7,9 @@ class Enemy {
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
+    this.x = 1;
+    this.y = Math.floor(Math.random()*3)*83 + 60;
+    this.speed = Math.floor(Math.random()*3)*200 + 100;
   }
 
   // Update the enemy's position, required method for game
@@ -15,6 +18,12 @@ class Enemy {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+    this.x += this.speed * dt;
+    if (this.x >= 505) {
+      this.x = -100;
+      this.y = Math.floor(Math.random()*3)*83 + 60;
+      this.speed = Math.floor(Math.random()*3)*200 + 100;
+    };
   }
 
   // Draw the enemy on the screen, required method for game
@@ -38,12 +47,22 @@ class Player {
   update() {
     // If the player reaches the water then add 1 to the number
     // of wins and restart the game
-    if (this.y === 43) {
+    if (this.y < 43) {
       setTimeout(() => {
         wins += 1;
         this.y = 375;
-      }, 1000);
+      }, 300);
     };
+
+    // If the player collides with an enemy, then restart the
+    // game and reset the score
+    allEnemies.forEach((enemy) => {
+      if(this.y === (enemy.y - 17) && this.x > enemy.x - 15 && this.x < enemy.x + 15) {
+        this.x = 203;
+        this.y = 375;
+        wins = 0;
+      };
+    });
   }
 
   render() {
