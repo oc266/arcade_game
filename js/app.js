@@ -36,7 +36,14 @@ class Player {
   }
 
   update() {
-    
+    // If the player reaches the water then add 1 to the number
+    // of wins and restart the game
+    if (this.y === 43) {
+      setTimeout(() => {
+        wins += 1;
+        this.y = 375;
+      }, 1000);
+    };
   }
 
   render() {
@@ -75,9 +82,12 @@ class Player {
 // Place the player object in a variable called player
 var Enemy1 = new Enemy(),
     Enemy2 = new Enemy();
-var allEnemies = [Enemy1, Enemy2];
+    Enemy3 = new Enemy();
+var allEnemies = [Enemy1, Enemy2, Enemy3];
 var player = new Player();
 
+// Define variables
+var wins = 0;
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
