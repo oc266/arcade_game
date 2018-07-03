@@ -48,32 +48,43 @@ class Player {
     // If the player reaches the water then add 1 to the number
     // of wins and restart the game
     if (this.y < 43) {
-      setTimeout(() => {
-        this.y = 375;
-      }, 300);
+      this.x = 203;
+      this.y = 375;
+      // setTimeout(() => {
+      //   this.y = 375;
+      // }, 300);
       wins += 1;
-      score += 10;
+      score += 20;
     };
 
     // If the player collides with an enemy, then restart the
     // game and reset the score
     allEnemies.forEach((enemy) => {
-      if(this.y === (enemy.y - 17) && this.x > enemy.x - 15 && this.x < enemy.x + 15) {
+      if (this.y === (enemy.y - 17) && this.x > enemy.x - 25 && this.x < enemy.x + 25) {
         this.x = 203;
         this.y = 375;
-        wins = 0;
+        lives -= 1;
+        if (lives === 0) {
+          lives = 3;
+          openModal();
+        }
       };
     });
 
     // If the player lands on the same square as the gem
     // then collect the gem, add 10 to the score and set a
     // new gem down
-    if(this.x === gem.x && this.y === gem.y - 17) {
-      score += 10;
-      gem.sprite = gems[ Math.floor(Math.random()*3)];
-      gem.x = Math.floor(Math.random()*5)*101 + 1;
-      gem.y = Math.floor(Math.random()*3)*83 + 60;
-      gem.render();
+    if (this.x === collectable.x && this.y === collectable.y - 17) {
+      if (collectable.sprite === 'images/Heart.png') {
+        lives += 1;
+      } else {
+        score += 10;
+        gems += 1;
+      };
+      collectable.sprite = collectables[ Math.floor(Math.random()*3)];
+      collectable.x = Math.floor(Math.random()*5)*101 + 1;
+      collectable.y = Math.floor(Math.random()*3)*83 + 60;
+      collectable.render();
     };
   }
 
@@ -107,9 +118,9 @@ class Player {
   }
 };
 
-class Gem {
+class Collectable {
   constructor() {
-    this.sprite = gems[ Math.floor(Math.random()*3)];
+    this.sprite = collectables[Math.floor(Math.random()*4)];
     this.x = Math.floor(Math.random()*5)*101 + 1;
     this.y = Math.floor(Math.random()*3)*83 + 60;
   }
@@ -119,14 +130,52 @@ class Gem {
   };
 }
 
+// Find the modal and its overlay
+var modal = document.querySelector('.modal');
+var modalOverlay = document.querySelector('.modal-overlay');
+
+function openModal() {
+
+  // New Game Button
+  var newGameButton = modal.querySelector('.new-game');
+  newGameButton.addEventListener('click', closeModal);
+
+  let scoreMsg = document.querySelector('.score');
+  let waterMsg = document.querySelector('.water');
+  let gemMsg = document.querySelector('.gems');
+  scoreMsg.textContent = `Your score is ${score}`;
+  if (wins === 1) {
+    waterMsg.textContent = `You reached the water ${wins} time`;
+  } else {
+    waterMsg.textContent = `You reached the water ${wins} times`;
+  };
+  if (gems === 1) {
+    gemMsg.textContent = `You picked up ${gems} gem`;
+  } else {
+    gemMsg.textContent = `You picked up ${gems} gems`;
+  };
+
+  // Show the modal and overlay
+  modal.style.display = 'block';
+  modalOverlay.style.display = 'block';
+
+};
+
+function closeModal() {
+  // Hide the modal and overlay
+  modal.style.display = 'none';
+  modalOverlay.style.display = 'none';
+}
+
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-var gems = ['images/Gem Blue.png',
-            'images/Gem Green.png',
-            'images/Gem Orange.png',];
-var gem = new Gem();
+var collectables = ['images/Gem Blue.png',
+                    'images/Gem Green.png',
+                    'images/Gem Orange.png',
+                    'images/Heart.png'];
+var collectable = new Collectable();
 var Enemy1 = new Enemy(),
     Enemy2 = new Enemy();
     Enemy3 = new Enemy();
@@ -138,6 +187,8 @@ var player = new Player();
 // Define variables
 var wins = 0;
 var score = 50;
+var gems = 0;
+var lives = 3;
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.

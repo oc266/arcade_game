@@ -6,7 +6,14 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <modal> Congratulations</modal>
+  <div class="modal" role="dialog">
+    <h1>You got bugged!</h1>
+    <h2 class=score>Your score is 0</h2>
+    <h3 class=water>You reached the water 0 times</h3>
+    <h4 class=gems>You picked up 0 gems</h4>
+    <button class="new-game">Play again!</button>
+  </div>
+  <div class="modal-overlay"></div>
   <script src="js/resources.js"></script>
   <script src="js/app.js"></script>
   <script src="js/engine.js"></script>
