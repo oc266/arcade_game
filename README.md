@@ -1,5 +1,4 @@
 # Arcade Game for Udactiy Front End Nanodegree
-===============================
 
 This game has been developed as part of Udacity's Front End Nanodegree Scholarship.
 The aim of the game is to score as many points as possible by collecting gems and crossing the road to the river as often as possible without getting caught by the enemy bugs. If you lose all your lives you are bugged and will be shown your game statistics.
@@ -23,7 +22,7 @@ The aim of the game is to score as many points as possible by collecting gems an
 8. Now, click the replay game button to try to beat your score!
 
 ## Built with the help of:
-* Starter code provided by Udacity (https://github.com/udacity/fend-project-arcade-game)
+* Starter code provided by Udacity (https://github.com/udacity/frontend-nanodegree-arcade-game)
 
 ## Author
 * Oliver Critchfield
