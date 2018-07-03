@@ -31,18 +31,7 @@ body {
   padding: 0;
 }
 
-html {
-  box-sizing: border-box;
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: inherit;
-}
-
 body {
-  background: #ffffff url('../img/geometry2.png'); /* Background pattern from Subtle Patterns */
   font-family: 'Coda', cursive;
 }
 
@@ -56,21 +45,21 @@ body {
 .score-panel {
   text-align: left;
   width: 345px;
-  margin-bottom: 0px;
+  margin-top: 15px;
+  margin-bottom: 0;
 }
-.score-panel .stars {
-  margin: 0;
+.score-panel .hearts {
   padding: 0;
   display: inline-block;
-  margin: 0 25px 0 0;
+  margin: 0 35px 0 0;
 }
 
-.score-panel .stars li {
+.score-panel .hearts li {
   list-style: none;
   display: inline-block;
 }
 
-.score-panel .restart {
+.score-panel .new-game {
   float: right;
   cursor: pointer;
 }

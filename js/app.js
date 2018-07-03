@@ -148,11 +148,16 @@ newGameButton.addEventListener('click', function(evt) {
 });
 
 function resetCounters() {
+  // Move player back to start
+  player.x = 203;
+  player.y = 375;
+
   // Reset game counters
   wins = 0;
   score = 50;
   gems = 0;
   lives = 3;
+  scoreHTML.textContent = `Score: ${score}`;
 
   // Reset star rating
   let hearts = heartDisplay.querySelectorAll('.fa');
