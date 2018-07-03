@@ -35,6 +35,7 @@ class Enemy {
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
+let scoreHTML = document.querySelector('.current-score')
 class Player {
   constructor() {
     // The image/ sprite for the player. This uses
@@ -50,11 +51,9 @@ class Player {
     if (this.y < 43) {
       this.x = 203;
       this.y = 375;
-      // setTimeout(() => {
-      //   this.y = 375;
-      // }, 300);
       wins += 1;
       score += 20;
+      scoreHTML.textContent = `Score: ${score}`;
     };
 
     // If the player collides with an enemy, then restart the
@@ -64,10 +63,11 @@ class Player {
         this.x = 203;
         this.y = 375;
         lives -= 1;
+        removeHeart();
         if (lives === 0) {
           lives = 3;
           openModal();
-        }
+        };
       };
     });
 
@@ -81,6 +81,9 @@ class Player {
         score += 10;
         gems += 1;
       };
+
+      scoreHTML.textContent = `Score: ${score}`;
+
       collectable.sprite = collectables[ Math.floor(Math.random()*3)];
       collectable.x = Math.floor(Math.random()*5)*101 + 1;
       collectable.y = Math.floor(Math.random()*3)*83 + 60;
@@ -128,7 +131,42 @@ class Collectable {
   render() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
   };
-}
+};
+
+const heartDisplay = document.querySelector('.hearts');
+// A function to remove a heart when a life is lost
+function removeHeart() {
+  let hearts = heartDisplay.querySelectorAll('.fa-heart');
+  hearts[hearts.length - 1].classList.remove('fa-heart');
+  hearts[hearts.length - 1].classList.add('fa-heart-o');
+};
+
+// If the new game button is pressed then restart the game
+let newGameButton = document.querySelector('.new-game');
+newGameButton.addEventListener('click', function(evt) {
+  resetCounters();
+});
+
+function resetCounters() {
+  // Reset game counters
+  wins = 0;
+  score = 50;
+  gems = 0;
+  lives = 3;
+
+  // Reset star rating
+  let hearts = heartDisplay.querySelectorAll('.fa');
+  hearts.forEach(function(heart) {
+    heart.classList.add('fa-heart');
+    if (!heart.classList.contains('fa-heart')) {
+      heart.classList.add('fa-heart');
+    };
+    if (heart.classList.contains('fa-heart-o')) {
+      heart.classList.remove('fa-heart-o');
+    };
+  });
+};
+
 
 // Find the modal and its overlay
 var modal = document.querySelector('.modal');
@@ -138,7 +176,10 @@ function openModal() {
 
   // New Game Button
   var newGameButton = modal.querySelector('.new-game');
-  newGameButton.addEventListener('click', closeModal);
+  newGameButton.addEventListener('click', function() {
+    closeModal();
+    resetCounters();
+  });
 
   let scoreMsg = document.querySelector('.score');
   let waterMsg = document.querySelector('.water');
