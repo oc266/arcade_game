@@ -1,6 +1,14 @@
 body {
-    text-align: center;
+  text-align: center;
+  font-family: 'Coda', cursive;
 }
+
+
+/*
+ *
+ * Modal
+ *
+ */
 
 .modal {
   border-radius: 4px;
@@ -31,9 +39,11 @@ body {
   padding: 0;
 }
 
-body {
-  font-family: 'Coda', cursive;
-}
+/*
+ *
+ * Score panel
+ *
+ */
 
 .scorebox {
   display: flex;
