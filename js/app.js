@@ -149,6 +149,7 @@ class Collectable {
 };
 
 const heartDisplay = document.querySelector('.hearts');
+
 // A function to remove a heart when a life is lost
 function removeHeart() {
   let heartsRemaining = heartDisplay.querySelectorAll('.fa-heart');
@@ -171,8 +172,8 @@ newGameButton.addEventListener('click', function(evt) {
 });
 
 // A function to be called when a game restarts, which
-// resets wins, score and lives counters and the necessary
-// displays
+// resets wins, score and lives counters and the lives
+// display on the score panel
 function resetCounters() {
   // Move player back to start
   player.x = 203;
@@ -198,20 +199,15 @@ function resetCounters() {
   });
 };
 
-
 // Find the modal and its overlay
 var modal = document.querySelector('.modal');
 var modalOverlay = document.querySelector('.modal-overlay');
 
+// A function to display end of game modal. To be called when
+// all lives have been lost
 function openModal() {
 
-  // New Game Button
-  var newGameButton = modal.querySelector('.new-game');
-  newGameButton.addEventListener('click', function() {
-    closeModal();
-    resetCounters();
-  });
-
+  // Add text content with the scores to the modal
   let scoreMsg = document.querySelector('.score');
   let waterMsg = document.querySelector('.water');
   let gemMsg = document.querySelector('.gems');
@@ -227,50 +223,50 @@ function openModal() {
     gemMsg.textContent = `You picked up ${gems} gems`;
   };
 
+  // New Game Button needs an event listener to close the
+  // modal and start a new game
+  var newGameButton = modal.querySelector('.new-game');
+  newGameButton.addEventListener('click', function() {
+    modal.style.display = 'none';
+    modalOverlay.style.display = 'none';
+    resetCounters();
+  });
+  
   // Show the modal and overlay
   modal.style.display = 'block';
   modalOverlay.style.display = 'block';
-
 };
 
-function closeModal() {
-  // Hide the modal and overlay
-  modal.style.display = 'none';
-  modalOverlay.style.display = 'none';
-}
-
-
-// Now instantiate your objects.
+// Now instantiate objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-var collectables = ['images/Gem Blue.png',
-                    'images/Gem Green.png',
-                    'images/Gem Orange.png',
-                    'images/Heart.png'];
-var collectable = new Collectable();
+// Place collectable object in a variable called collectable
 var Enemy1 = new Enemy(),
     Enemy2 = new Enemy();
     Enemy3 = new Enemy();
 var allEnemies = [Enemy1, Enemy2, Enemy3];
 var player = new Player();
+var collectables = ['images/Gem Blue.png',
+                    'images/Gem Green.png',
+                    'images/Gem Orange.png',
+                    'images/Heart.png'];
+var collectable = new Collectable();
 
-
-
-// Define variables
+// Define variables to count wins, score, gems & lives
 var wins = 0;
 var score = 50;
 var gems = 0;
 var lives = 3;
 
-// This listens for key presses and sends the keys to your
-// Player.handleInput() method. You don't need to modify this.
+// This listens for key presses and sends the keys to the
+// Player.handleInput() method.
 document.addEventListener('keyup', function(e) {
-    var allowedKeys = {
-        37: 'left',
-        38: 'up',
-        39: 'right',
-        40: 'down'
-    };
+  var allowedKeys = {
+    37: 'left',
+    38: 'up',
+    39: 'right',
+    40: 'down'
+  };
 
-    player.handleInput(allowedKeys[e.keyCode]);
+  player.handleInput(allowedKeys[e.keyCode]);
 });

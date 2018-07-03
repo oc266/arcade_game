@@ -1,6 +1,29 @@
-frontend-nanodegree-arcade-game
+# Arcade Game for Udactiy Front End Nanodegree
 ===============================
 
-Students should use this [rubric](https://review.udacity.com/#!/projects/2696458597/rubric) for self-checking their submission. Make sure the functions you write are **object-oriented** - either class functions (like Player and Enemy) or class prototype functions such as Enemy.prototype.checkCollisions, and that the keyword 'this' is used appropriately within your class and class prototype functions to refer to the object the function is called upon. Also be sure that the **readme.md** file is updated with your instructions on both how to 1. Run and 2. Play your arcade game.
+This game has been developed as part of Udacity's Front End Nanodegree Scholarship.
+The aim of the game is to score as many points as possible by collecting gems and crossing the road to the river as often as possible without getting caught by the enemy bugs. If you lose all your lives you are bugged and will be shown your game statistics.
 
-For detailed instructions on how to get started, check out this [guide](https://docs.google.com/document/d/1v01aScPjSWCCWQLIpFqvg3-vXLH2e8_SZQKC8jNO0Dc/pub?embedded=true).
+## Installing from source
+
+1. Clone the following repo:
+ * git clone https://github.com/oc266/arcade_game.git
+2. Open the file index.html in your browser.
+3. Get playing and avoid being bugged!
+
+## How to Play
+* The aim of the game is to score as many points as possible.
+1. Use your keyboard arrows to move the player.
+2. Your aim is to score as many points as possible without getting caught by the enemy bugs.
+3. If you collect a gem you score 10 points.
+4. If you manage to cross the road to the river you score 20 points.
+5. You start off with three lives, but lose a life each time an enemy bug catches you.
+6. You can gain a life by picking up a heart.
+7. If you lose all three bugs, the game is over and you've been bugged.
+8. Now, click the replay game button to try to beat your score!
+
+## Built with the help of:
+* Starter code provided by Udacity (https://github.com/udacity/fend-project-arcade-game)
+
+## Author
+* Oliver Critchfield
